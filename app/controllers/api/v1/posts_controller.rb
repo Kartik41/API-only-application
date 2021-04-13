@@ -1,5 +1,5 @@
 class Api::V1::PostsController < ApiController
-  #before_action :set_post, only: [:show, :update, :destroy]
+  before_action :set_post, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 
   # GET /posts
@@ -11,7 +11,8 @@ class Api::V1::PostsController < ApiController
 
   # GET /posts/1
   def show
-    render json: @post
+    @posts = Post.find(params[:id])
+    render json: @posts
   end
 
   # POST /posts
@@ -37,6 +38,7 @@ class Api::V1::PostsController < ApiController
   # DELETE /posts/1
   def destroy
     @post.destroy
+    render plain: "OK" 
   end
 
   private
